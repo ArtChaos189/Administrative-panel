@@ -1,5 +1,8 @@
+import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { selectCategory, setSizes, setTypeNames } from "redux/slice/category/slice";
 
 type PizzaProps = {
   id: string;
@@ -14,7 +17,38 @@ export const PizzaBlock: React.FC<PizzaProps> = ({ id, name, price, imageUrl, si
   const [activeType, setACtiveType] = React.useState(0);
   const [activeSize, setACtiveSize] = React.useState(0);
 
-  const typeNames = ["тонкое", "традиционное"];
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { typeNames } = useSelector(selectCategory);
+
+  React.useEffect(() => {
+    async function fetchTypeNames() {
+      try {
+        const { data } = await axios.get("https://63a746c37989ad3286edc1b1.mockapi.io/typeNames");
+        dispatch(setTypeNames(data));
+      } catch (error) {
+        alert("Ошибка при получении теста!");
+        navigate("/add");
+      }
+    }
+
+    fetchTypeNames();
+  }, [dispatch, navigate]);
+
+  React.useEffect(() => {
+    async function fetchSizes() {
+      try {
+        const { data } = await axios.get("  https://63a746c37989ad3286edc1b1.mockapi.io/sizes");
+        dispatch(setSizes(data));
+      } catch (error) {
+        alert("Ошибка при получении размера!");
+        navigate("/add");
+      }
+    }
+
+    fetchSizes();
+  }, [dispatch, navigate]);
 
   return (
     <div className="pizza-block-wraper">
