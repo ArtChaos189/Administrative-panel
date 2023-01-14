@@ -20,7 +20,7 @@ export const PizzaAdd = () => {
   const [isDisabledTwo, setIsDisabledTwo] = React.useState<boolean>(false);
 
   const dispatch = useDispatch();
-  const { categories, cateIndex, typeNames, sizes } = useSelector(selectCategory);
+  const { categories, сategoryIndex, typeNames, sizes } = useSelector(selectCategory);
 
   const editСategories = categories.slice(1);
 
@@ -32,7 +32,7 @@ export const PizzaAdd = () => {
       types: activeType,
       sizes: activeSize,
       price: +priceValue,
-      category: cateIndex + 1,
+      category: сategoryIndex + 1,
       rating: 5,
     });
   };
@@ -94,7 +94,7 @@ export const PizzaAdd = () => {
             <li
               key={index}
               onClick={() => dispatch(setActiveCategoryes(index))}
-              className={cateIndex === index ? "active" : ""}
+              className={сategoryIndex === index ? "active" : ""}
             >
               {categories}
             </li>
@@ -121,9 +121,13 @@ export const PizzaAdd = () => {
           ))}
         </ul>
       </div>
-      <button className={styles.btn} onClick={() => add()}>
-        <span>добавить</span>
-      </button>
+      {nameValue && priceValue && сategoryIndex >= 0 && activeType.length >= 1 && activeSize.length >= 1 ? (
+        <button className={styles.btn} onClick={() => add()}>
+          <span>добавить</span>
+        </button>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

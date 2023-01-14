@@ -3,9 +3,12 @@ import Search from "./Search";
 import LogoSvg from "assets/img/pizza-logo.svg";
 
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectCategory } from "redux/slice/category/slice";
 
 export const Header = () => {
   const location = useLocation();
+  const { pizzaId } = useSelector(selectCategory);
 
   return (
     <div className="header">
@@ -19,7 +22,7 @@ export const Header = () => {
             <p>Administrative panel</p>
           </div>
         </div>
-        {location.pathname !== "/add" && <Search />}
+        {location.pathname !== "/add" && <Search /> && location.pathname !== `/pizza/${pizzaId}` && <Search />}
       </div>
     </div>
   );

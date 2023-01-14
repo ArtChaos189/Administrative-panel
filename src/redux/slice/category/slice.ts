@@ -1,26 +1,22 @@
 import { RootState } from "../../store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type Names = {
-  index: number;
-  prev: number[];
-  _index: number;
-};
-
 interface CategorySliceState {
   categories: string[];
-  cateIndex: number;
+  сategoryIndex: number;
   typeNames: string[];
-  typeIndex: number[];
+  activeType: number[];
   sizes: number[];
+  pizzaId: string | undefined;
 }
 
 const initialState: CategorySliceState = {
   categories: [],
-  cateIndex: -1,
+  сategoryIndex: -1,
   typeNames: [],
-  typeIndex: [],
+  activeType: [],
   sizes: [],
+  pizzaId: "",
 };
 
 export const categorySlice = createSlice({
@@ -31,7 +27,7 @@ export const categorySlice = createSlice({
       state.categories = action.payload;
     },
     setActiveCategoryes: (state, action: PayloadAction<number>) => {
-      state.cateIndex = action.payload;
+      state.сategoryIndex = action.payload;
     },
     setTypeNames: (state, action: PayloadAction<string[]>) => {
       state.typeNames = action.payload;
@@ -39,11 +35,13 @@ export const categorySlice = createSlice({
     setSizes: (state, action: PayloadAction<number[]>) => {
       state.sizes = action.payload;
     },
-    setOnClickType: (state, action: PayloadAction<Names>) => {},
+    setPizzaId: (state, action: PayloadAction<string | undefined>) => {
+      state.pizzaId = action.payload;
+    },
   },
 });
 
 export const selectCategory = (state: RootState) => state.categoryes;
-export const { setCategoryes, setActiveCategoryes, setTypeNames, setSizes } = categorySlice.actions;
+export const { setCategoryes, setActiveCategoryes, setTypeNames, setSizes, setPizzaId } = categorySlice.actions;
 
 export default categorySlice.reducer;

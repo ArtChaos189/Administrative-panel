@@ -28,7 +28,6 @@ export const Home = () => {
           `https://63a746c37989ad3286edc1b1.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}`
         );
         dispatch(setItems(data));
-        console.log(data);
       } catch (error) {
         alert("Ошибка при получении пицц");
         dispatch(setItems([]));
