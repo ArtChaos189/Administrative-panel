@@ -1,18 +1,16 @@
-import axios from "axios";
 import React from "react";
+
+import axios from "axios";
 
 import { useNavigate, useParams } from "react-router-dom";
 
-import { Skeleton } from "components/ui";
 import { useDispatch } from "react-redux";
+
+import { Skeleton } from "components/ui";
+
 import { setPizzaId } from "redux/slice/category/slice";
 
 export const FullPizza = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
-  const dispatch = useDispatch();
-
   const [open, setOpen] = React.useState<boolean>(false);
 
   const [openTwo, setOpenTwo] = React.useState<boolean>(false);
@@ -21,6 +19,12 @@ export const FullPizza = () => {
 
   const [priceValue, setPriceValue] = React.useState<string>("");
 
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const { id } = useParams();
+
   dispatch(setPizzaId(id));
 
   const [pizza, setPizza] = React.useState<{
@@ -28,6 +32,18 @@ export const FullPizza = () => {
     name: string;
     price: number;
   }>();
+
+  const Delete = () => {
+    axios.delete("https://63a746c37989ad3286edc1b1.mockapi.io/items/" + id);
+    navigate("/");
+  };
+
+  const change = () => {
+    axios.put("https://63a746c37989ad3286edc1b1.mockapi.io/items/" + id, {
+      name: nameValue,
+      price: priceValue,
+    });
+  };
 
   React.useEffect(() => {
     async function fetchPizza() {
@@ -43,21 +59,9 @@ export const FullPizza = () => {
     fetchPizza();
   }, [id, navigate]);
 
-  const change = () => {
-    axios.put("https://63a746c37989ad3286edc1b1.mockapi.io/items/" + id, {
-      name: nameValue,
-      price: priceValue,
-    });
-  };
-
   if (!pizza) {
     return <Skeleton />;
   }
-
-  const del = () => {
-    axios.delete("https://63a746c37989ad3286edc1b1.mockapi.io/items/" + id);
-    navigate("/");
-  };
 
   return (
     <div className="container">
@@ -84,7 +88,7 @@ export const FullPizza = () => {
         </h4>
       )}
       {priceValue || nameValue ? <button onClick={() => change()}>изменить пиццу</button> : ""}
-      <button onClick={() => del()}>удалить пиццу</button>
+      <button onClick={() => Delete()}>удалить пиццу</button>
     </div>
   );
 };

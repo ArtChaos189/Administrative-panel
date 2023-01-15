@@ -1,10 +1,12 @@
+import { Link, useLocation } from "react-router-dom";
+
+import { useSelector } from "react-redux";
+
+import { selectCategory } from "redux/slice/category/slice";
+
 import Search from "./Search";
 
 import LogoSvg from "assets/img/pizza-logo.svg";
-
-import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCategory } from "redux/slice/category/slice";
 
 export const Header = () => {
   const location = useLocation();

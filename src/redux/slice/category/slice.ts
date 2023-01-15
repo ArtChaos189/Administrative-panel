@@ -1,14 +1,14 @@
 import { RootState } from "../../store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface CategorySliceState {
+type CategorySliceState = {
   categories: string[];
   сategoryIndex: number;
   typeNames: string[];
   activeType: number[];
   sizes: number[];
   pizzaId: string | undefined;
-}
+};
 
 const initialState: CategorySliceState = {
   categories: [],

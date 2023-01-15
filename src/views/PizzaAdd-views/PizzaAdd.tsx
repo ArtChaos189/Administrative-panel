@@ -53,6 +53,9 @@ export const PizzaAdd = () => {
     }
   };
 
+  const isButtonAvailable =
+    nameValue && priceValue && сategoryIndex >= 0 && activeType.length >= 1 && activeSize.length > 0;
+
   return (
     <div className="container">
       <h2 className={styles.header}>Название</h2>
@@ -121,12 +124,10 @@ export const PizzaAdd = () => {
           ))}
         </ul>
       </div>
-      {nameValue && priceValue && сategoryIndex >= 0 && activeType.length >= 1 && activeSize.length >= 1 ? (
+      {isButtonAvailable && (
         <button className={styles.btn} onClick={() => add()}>
           <span>добавить</span>
         </button>
-      ) : (
-        ""
       )}
     </div>
   );
