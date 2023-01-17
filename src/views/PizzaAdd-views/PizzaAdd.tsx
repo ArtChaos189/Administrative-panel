@@ -1,5 +1,9 @@
 import axios from "axios";
+
 import React from "react";
+
+import cn from "classnames";
+
 import { useSelector, useDispatch } from "react-redux";
 
 import { selectCategory, setActiveCategoryes } from "../../redux/slice/category/slice";
@@ -97,7 +101,7 @@ export const PizzaAdd = () => {
             <li
               key={index}
               onClick={() => dispatch(setActiveCategoryes(index))}
-              className={сategoryIndex === index ? "active" : ""}
+              className={cn({ active: сategoryIndex === index })}
             >
               {categories}
             </li>
@@ -108,7 +112,7 @@ export const PizzaAdd = () => {
       <div className="pizza-block__selector">
         <ul className={styles.list}>
           {typeNames.map((type, index) => (
-            <li key={index} onClick={() => onClickType(index)} className={activeType.includes(index) ? "active" : ""}>
+            <li key={index} onClick={() => onClickType(index)} className={cn({ active: activeType.includes(index) })}>
               {type}
             </li>
           ))}
@@ -118,7 +122,7 @@ export const PizzaAdd = () => {
       <div className="pizza-block__selector">
         <ul className={styles.list}>
           {sizes.map((size, index) => (
-            <li key={index} onClick={() => onClickSize(size)} className={activeSize.includes(size) ? "active" : ""}>
+            <li key={index} onClick={() => onClickSize(size)} className={cn({ active: activeSize.includes(size) })}>
               {size}см.
             </li>
           ))}

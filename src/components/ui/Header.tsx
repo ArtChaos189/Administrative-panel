@@ -10,7 +10,10 @@ import LogoSvg from "assets/img/pizza-logo.svg";
 
 export const Header = () => {
   const location = useLocation();
+
   const { pizzaId } = useSelector(selectCategory);
+
+  const link = location.pathname !== "/add" && location.pathname !== `/pizza/${pizzaId}`;
 
   return (
     <div className="header">
@@ -24,7 +27,7 @@ export const Header = () => {
             <p>Administrative panel</p>
           </div>
         </div>
-        {location.pathname !== "/add" && <Search /> && location.pathname !== `/pizza/${pizzaId}` && <Search />}
+        {link && <Search />}
       </div>
     </div>
   );

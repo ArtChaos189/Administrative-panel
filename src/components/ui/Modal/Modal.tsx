@@ -1,4 +1,5 @@
-import style from "./Modal.module.scss";
+import "./_modal.scss";
+import cn from "classnames";
 
 type ModaProps = {
   active: boolean;
@@ -6,9 +7,11 @@ type ModaProps = {
 };
 
 export const Modal: React.FC<ModaProps> = ({ active, setActive }) => {
+  const className = cn("modal", { "modal.active": active });
+
   return (
-    <div className={active ? style.modal.active : style.modal} onClick={() => setActive(false)}>
-      <div className={style.modal__content} onClick={(event) => event.stopPropagation}></div>
+    <div className={className} onClick={() => setActive(false)}>
+      <div className="modal_content" onClick={(event) => event.stopPropagation}></div>
     </div>
   );
 };

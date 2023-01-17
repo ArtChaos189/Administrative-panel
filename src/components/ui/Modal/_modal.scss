@@ -16,12 +16,12 @@
 
 .modal.active {
   opacity: 1;
-}
 
-.modal__content {
-  padding: 20px;
-  border-radius: 12px;
-  background-color: #d6e0d6;
-  height: 400px;
-  width: 400px;
+  .modal_content {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #d6e0d6;
+    height: 400px;
+    width: 400px;
+  }
 }
