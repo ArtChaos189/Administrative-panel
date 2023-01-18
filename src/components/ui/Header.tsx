@@ -1,20 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
-
-import { useSelector } from "react-redux";
-
-import { selectCategory } from "redux/slice/category/slice";
+import { Link, Route, Routes } from "react-router-dom";
 
 import Search from "./Search";
 
 import LogoSvg from "assets/img/pizza-logo.svg";
 
 export const Header = () => {
-  const location = useLocation();
-
-  const { pizzaId } = useSelector(selectCategory);
-
-  const link = location.pathname !== "/add" && location.pathname !== `/pizza/${pizzaId}`;
-
   return (
     <div className="header">
       <div className="container">
@@ -27,7 +17,9 @@ export const Header = () => {
             <p>Administrative panel</p>
           </div>
         </div>
-        {link && <Search />}
+        <Routes>
+          <Route path="/" element={<Search />} />
+        </Routes>
       </div>
     </div>
   );

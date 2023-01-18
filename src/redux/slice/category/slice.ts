@@ -7,7 +7,6 @@ type CategorySliceState = {
   typeNames: string[];
   activeType: number[];
   sizes: number[];
-  pizzaId: string | undefined;
 };
 
 const initialState: CategorySliceState = {
@@ -16,7 +15,6 @@ const initialState: CategorySliceState = {
   typeNames: [],
   activeType: [],
   sizes: [],
-  pizzaId: "",
 };
 
 export const categorySlice = createSlice({
@@ -35,13 +33,10 @@ export const categorySlice = createSlice({
     setSizes: (state, action: PayloadAction<number[]>) => {
       state.sizes = action.payload;
     },
-    setPizzaId: (state, action: PayloadAction<string | undefined>) => {
-      state.pizzaId = action.payload;
-    },
   },
 });
 
 export const selectCategory = (state: RootState) => state.categoryes;
-export const { setCategoryes, setActiveCategoryes, setTypeNames, setSizes, setPizzaId } = categorySlice.actions;
+export const { setCategoryes, setActiveCategoryes, setTypeNames, setSizes } = categorySlice.actions;
 
 export default categorySlice.reducer;

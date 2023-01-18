@@ -4,11 +4,7 @@ import axios from "axios";
 
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
-
 import { Skeleton } from "components/ui";
-
-import { setPizzaId } from "redux/slice/category/slice";
 
 export const FullPizza = () => {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -21,11 +17,7 @@ export const FullPizza = () => {
 
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-
   const { id } = useParams();
-
-  dispatch(setPizzaId(id));
 
   const [pizza, setPizza] = React.useState<{
     imageUrl: string;
