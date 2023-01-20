@@ -1,25 +1,26 @@
-import React from "react";
+import axios from "axios";
+
+import { memo, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
-import { selectFilter } from "redux/slice/filter/slice";
+
 import { useWhyDidYouUpdate } from "ahooks";
-import axios from "axios";
+
+import { selectFilter } from "redux/slice/filter/slice";
+
 import { selectCategory, setCategoryes } from "redux/slice/category/slice";
 
-type CategoriesProps = {
-  getCategories?: (categories: string[]) => void;
-  onChangeCategory: (id: number) => void;
-};
+import { CategoriesProps } from "./type";
 
-export const Categories: React.FC<CategoriesProps> = React.memo(({ getCategories, onChangeCategory }) => {
+export const Categories: React.FC<CategoriesProps> = memo(({ getCategories, onChangeCategory }) => {
   useWhyDidYouUpdate("Categories", { getCategories, onChangeCategory });
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { categories } = useSelector(selectCategory);
-  React.useEffect(() => {
+  useEffect(() => {
     async function fetchСategories() {
       try {
         const { data } = await axios.get("https://63a746c37989ad3286edc1b1.mockapi.io/category");

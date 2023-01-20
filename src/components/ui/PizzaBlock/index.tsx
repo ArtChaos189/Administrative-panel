@@ -1,28 +1,23 @@
 import axios from "axios";
-import React from "react";
+
+import { useState, useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
+
 import { Link, useNavigate } from "react-router-dom";
+
 import { selectCategory, setSizes, setTypeNames } from "redux/slice/category/slice";
 
-type PizzaProps = {
-  id: string;
-  name: string;
-  price: number;
-  imageUrl: string;
-  sizes: number[];
-  types: number[];
-};
+import { PizzaProps } from "./type";
 
 export const PizzaBlock: React.FC<PizzaProps> = ({ id, name, price, imageUrl, sizes, types }) => {
-  const [activeType, setACtiveType] = React.useState(0);
-  const [activeSize, setACtiveSize] = React.useState(0);
-
+  const [activeType, setACtiveType] = useState(0);
+  const [activeSize, setACtiveSize] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { typeNames } = useSelector(selectCategory);
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function fetchTypeNames() {
       try {
         const { data } = await axios.get("https://63a746c37989ad3286edc1b1.mockapi.io/typeNames");
@@ -36,7 +31,7 @@ export const PizzaBlock: React.FC<PizzaProps> = ({ id, name, price, imageUrl, si
     fetchTypeNames();
   }, [dispatch, navigate]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function fetchSizes() {
       try {
         const { data } = await axios.get("  https://63a746c37989ad3286edc1b1.mockapi.io/sizes");

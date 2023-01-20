@@ -1,37 +1,19 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, memo, useRef } from "react";
 
 import { useDispatch } from "react-redux";
+
 import { setSort } from "redux/slice/filter/slice";
-import { Sort, sortPropertyEnum } from "redux/slice/filter/types";
+
+import { list } from "__mocks__/sort";
+
+import { PopupClick, SortItem, SortProps } from "./type";
 
 import "styles/app.scss";
 
-type SortItem = {
-  name: string;
-  sortProperty: sortPropertyEnum;
-};
-
-type PopupClick = MouseEvent & {
-  path: Node[];
-};
-
-type SortProps = {
-  sort: Sort;
-};
-
-export const list: SortItem[] = [
-  { name: "↑популярности", sortProperty: sortPropertyEnum.RATING_DESC },
-  { name: "↓популярности", sortProperty: sortPropertyEnum.RATING_ASC },
-  { name: "↑цене", sortProperty: sortPropertyEnum.PRICE_DESC },
-  { name: "↓цене", sortProperty: sortPropertyEnum.PRICE_ASC },
-  { name: "↑алфавиту", sortProperty: sortPropertyEnum.NAME_DESC },
-  { name: "↓алфавиту", sortProperty: sortPropertyEnum.NAME_ASC },
-];
-
-export const SortPopup: React.FC<SortProps> = React.memo(({ sort }) => {
+export const SortPopup: React.FC<SortProps> = memo(({ sort }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const sortRef = React.useRef<HTMLDivElement>(null);
+  const sortRef = useRef<HTMLDivElement>(null);
 
   const onClickListItem = (obj: SortItem) => {
     dispatch(setSort(obj));

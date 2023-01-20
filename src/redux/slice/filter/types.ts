@@ -12,9 +12,9 @@ export type Sort = {
   sortProperty: sortPropertyEnum;
 };
 
-export interface FilterSliceState {
+export type FilterSliceState = {
   categoryId: number;
   currentPage: number;
   searchValue: string;
   sort: Sort;
-}
+};

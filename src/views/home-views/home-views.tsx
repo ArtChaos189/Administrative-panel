@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -10,13 +10,19 @@ import { selectFilter, setCategoryId } from "redux/slice/filter/slice";
 import { Link } from "react-router-dom";
 
 export const Home = () => {
-  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
   const { categoryId, currentPage, sort, searchValue } = useSelector(selectFilter);
   const { items } = useSelector(selectPizzas);
+  const dispatch = useDispatch();
 
-  const [isLoading, setIsLoading] = React.useState(true);
+  const onChangeCategory = useCallback(
+    (id: number) => {
+      dispatch(setCategoryId(id));
+    },
+    [dispatch]
+  );
 
-  React.useEffect(() => {
+  useEffect(() => {
     const axiosPizzas = async () => {
       setIsLoading(true);
       const category = categoryId > 0 ? `category=${categoryId}` : "";
@@ -39,13 +45,6 @@ export const Home = () => {
 
     axiosPizzas();
   }, [categoryId, sort, searchValue, currentPage, dispatch]);
-
-  const onChangeCategory = React.useCallback(
-    (id: number) => {
-      dispatch(setCategoryId(id));
-    },
-    [dispatch]
-  );
 
   return (
     <div className="container">

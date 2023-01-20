@@ -1,10 +1,8 @@
-import "./_modal.scss";
 import cn from "classnames";
 
-type ModaProps = {
-  active: boolean;
-  setActive: (act: boolean) => void;
-};
+import { ModaProps } from "./type";
+
+import "./_modal.scss";
 
 export const Modal: React.FC<ModaProps> = ({ active, setActive }) => {
   const className = cn("modal", { "modal.active": active });

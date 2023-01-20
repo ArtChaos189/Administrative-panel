@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 
 import axios from "axios";
 
@@ -7,23 +7,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Skeleton } from "components/ui";
 
 export const FullPizza = () => {
-  const [open, setOpen] = React.useState<boolean>(false);
-
-  const [openTwo, setOpenTwo] = React.useState<boolean>(false);
-
-  const [nameValue, setNameValue] = React.useState<string>("");
-
-  const [priceValue, setPriceValue] = React.useState<string>("");
-
-  const navigate = useNavigate();
-
-  const { id } = useParams();
-
-  const [pizza, setPizza] = React.useState<{
+  const [open, setOpen] = useState<boolean>(false);
+  const [openTwo, setOpenTwo] = useState<boolean>(false);
+  const [nameValue, setNameValue] = useState<string>("");
+  const [priceValue, setPriceValue] = useState<string>("");
+  const [pizza, setPizza] = useState<{
     imageUrl: string;
     name: string;
     price: number;
   }>();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const Delete = () => {
     axios.delete("https://63a746c37989ad3286edc1b1.mockapi.io/items/" + id);
@@ -37,7 +31,7 @@ export const FullPizza = () => {
     });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function fetchPizza() {
       try {
         const { data } = await axios.get("https://63a746c37989ad3286edc1b1.mockapi.io/items/" + id);

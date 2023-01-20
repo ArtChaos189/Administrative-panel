@@ -12,17 +12,11 @@ import styles from "./PizzaAdd.module.scss";
 
 export const PizzaAdd = () => {
   const [nameValue, setNameValue] = React.useState("");
-
   const [priceValue, setPriceValue] = React.useState("");
-
   const [activeType, setACtiveType] = React.useState<number[]>([]);
-
   const [activeSize, setACtiveSize] = React.useState<number[]>([]);
-
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
-
   const [isDisabledTwo, setIsDisabledTwo] = React.useState<boolean>(false);
-
   const dispatch = useDispatch();
   const { categories, сategoryIndex, typeNames, sizes } = useSelector(selectCategory);
 

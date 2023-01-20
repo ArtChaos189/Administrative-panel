@@ -1,4 +1,5 @@
 import styles from "../not-found-views/not-found.module.scss";
+
 export const NotFound = () => {
   return (
     <div className={styles.root}>

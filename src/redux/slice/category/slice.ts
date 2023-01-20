@@ -1,13 +1,8 @@
-import { RootState } from "../../store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type CategorySliceState = {
-  categories: string[];
-  сategoryIndex: number;
-  typeNames: string[];
-  activeType: number[];
-  sizes: number[];
-};
+import { RootState } from "redux/store";
+
+import { CategorySliceState } from "./type";
 
 const initialState: CategorySliceState = {
   categories: [],
