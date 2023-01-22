@@ -1,53 +1,27 @@
-import axios from "axios";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { selectCategory, setSizes, setTypeNames } from "redux/slice/category/slice";
+import { useState, useEffect } from "react";
 
-type PizzaProps = {
-  id: string;
-  name: string;
-  price: number;
-  imageUrl: string;
-  sizes: number[];
-  types: number[];
-};
+import { useDispatch, useSelector } from "react-redux";
+
+import { Link, useNavigate } from "react-router-dom";
+
+import { fetchSizes, fetchTypeNames } from "redux/slice/category/asyncActions";
+
+import { selectCategory } from "redux/slice/category/slice";
+
+import { AppDispatch } from "redux/store";
+
+import { PizzaProps } from "./type";
 
 export const PizzaBlock: React.FC<PizzaProps> = ({ id, name, price, imageUrl, sizes, types }) => {
-  const [activeType, setACtiveType] = React.useState(0);
-  const [activeSize, setACtiveSize] = React.useState(0);
-
+  const [activeType, setACtiveType] = useState(0);
+  const [activeSize, setACtiveSize] = useState(0);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
+  const dispatch = useDispatch<AppDispatch>();
   const { typeNames } = useSelector(selectCategory);
 
-  React.useEffect(() => {
-    async function fetchTypeNames() {
-      try {
-        const { data } = await axios.get("https://63a746c37989ad3286edc1b1.mockapi.io/typeNames");
-        dispatch(setTypeNames(data));
-      } catch (error) {
-        alert("Ошибка при получении теста!");
-        navigate("/add");
-      }
-    }
-
-    fetchTypeNames();
-  }, [dispatch, navigate]);
-
-  React.useEffect(() => {
-    async function fetchSizes() {
-      try {
-        const { data } = await axios.get("  https://63a746c37989ad3286edc1b1.mockapi.io/sizes");
-        dispatch(setSizes(data));
-      } catch (error) {
-        alert("Ошибка при получении размера!");
-        navigate("/add");
-      }
-    }
-
-    fetchSizes();
+  useEffect(() => {
+    dispatch(fetchTypeNames());
+    dispatch(fetchSizes());
   }, [dispatch, navigate]);
 
   return (

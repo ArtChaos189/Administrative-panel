@@ -1,12 +1,10 @@
+import { Link, Route, Routes } from "react-router-dom";
+
 import Search from "./Search";
 
 import LogoSvg from "assets/img/pizza-logo.svg";
 
-import { Link, useLocation } from "react-router-dom";
-
 export const Header = () => {
-  const location = useLocation();
-
   return (
     <div className="header">
       <div className="container">
@@ -19,7 +17,9 @@ export const Header = () => {
             <p>Administrative panel</p>
           </div>
         </div>
-        {location.pathname !== "/add" && <Search />}
+        <Routes>
+          <Route path="/" element={<Search />} />
+        </Routes>
       </div>
     </div>
   );

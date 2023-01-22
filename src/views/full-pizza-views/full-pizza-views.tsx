@@ -1,19 +1,37 @@
+import { useState, useEffect } from "react";
+
 import axios from "axios";
-import React from "react";
+
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Skeleton } from "components/ui";
 
 export const FullPizza = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [pizza, setPizza] = React.useState<{
+  const [open, setOpen] = useState<boolean>(false);
+  const [openTwo, setOpenTwo] = useState<boolean>(false);
+  const [nameValue, setNameValue] = useState<string>("");
+  const [priceValue, setPriceValue] = useState<string>("");
+  const [pizza, setPizza] = useState<{
     imageUrl: string;
     name: string;
     price: number;
   }>();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-  React.useEffect(() => {
+  const Delete = () => {
+    axios.delete("https://63a746c37989ad3286edc1b1.mockapi.io/items/" + id);
+    navigate("/");
+  };
+
+  const change = () => {
+    axios.put("https://63a746c37989ad3286edc1b1.mockapi.io/items/" + id, {
+      name: nameValue,
+      price: priceValue,
+    });
+  };
+
+  useEffect(() => {
     async function fetchPizza() {
       try {
         const { data } = await axios.get("https://63a746c37989ad3286edc1b1.mockapi.io/items/" + id);
@@ -31,16 +49,32 @@ export const FullPizza = () => {
     return <Skeleton />;
   }
 
-  const del = () => {
-    axios.delete("https://63a746c37989ad3286edc1b1.mockapi.io/items/" + id);
-  };
-
   return (
     <div className="container">
       <img src={pizza.imageUrl} alt="pizza" />
-      <button onClick={() => del()}>удалить</button>
-      <h2>{pizza.name}</h2>
-      <h4>{pizza.price} ₽</h4>
+      {open ? (
+        <>
+          <input type="text" onChange={(event) => setNameValue(event.target.value)} placeholder="Название..." />
+          <button onClick={() => setOpen(false)}>Сохранить</button>
+        </>
+      ) : (
+        <h2>
+          {nameValue === "" ? pizza.name : nameValue}
+          <button onClick={() => setOpen(true)}>Изменить</button>
+        </h2>
+      )}
+      {openTwo ? (
+        <>
+          <input type="number" onChange={(event) => setPriceValue(event.target.value)} placeholder="Название..." />
+          <button onClick={() => setOpenTwo(false)}>Сохранить</button>
+        </>
+      ) : (
+        <h4>
+          {priceValue === "" ? pizza.price : priceValue}₽ <button onClick={() => setOpenTwo(true)}>Изменить</button>
+        </h4>
+      )}
+      {priceValue || nameValue ? <button onClick={() => change()}>изменить пиццу</button> : ""}
+      <button onClick={() => Delete()}>удалить пиццу</button>
     </div>
   );
 };

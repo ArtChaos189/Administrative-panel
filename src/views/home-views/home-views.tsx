@@ -1,22 +1,31 @@
-import React from "react";
 import axios from "axios";
 
+import { useState, useEffect, useCallback } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
+
+import { Link } from "react-router-dom";
 
 import { Categories, SortPopup, PizzaBlock, Skeleton, Pagination } from "components/ui";
 
 import { selectPizzas, setItems } from "redux/slice/pizzas/slice";
+
 import { selectFilter, setCategoryId } from "redux/slice/filter/slice";
-import { Link } from "react-router-dom";
 
 export const Home = () => {
-  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
   const { categoryId, currentPage, sort, searchValue } = useSelector(selectFilter);
   const { items } = useSelector(selectPizzas);
+  const dispatch = useDispatch();
 
-  const [isLoading, setIsLoading] = React.useState(true);
+  const onChangeCategory = useCallback(
+    (id: number) => {
+      dispatch(setCategoryId(id));
+    },
+    [dispatch]
+  );
 
-  React.useEffect(() => {
+  useEffect(() => {
     const axiosPizzas = async () => {
       setIsLoading(true);
       const category = categoryId > 0 ? `category=${categoryId}` : "";
@@ -28,7 +37,6 @@ export const Home = () => {
           `https://63a746c37989ad3286edc1b1.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}`
         );
         dispatch(setItems(data));
-        console.log(data);
       } catch (error) {
         alert("Ошибка при получении пицц");
         dispatch(setItems([]));
@@ -40,13 +48,6 @@ export const Home = () => {
 
     axiosPizzas();
   }, [categoryId, sort, searchValue, currentPage, dispatch]);
-
-  const onChangeCategory = React.useCallback(
-    (id: number) => {
-      dispatch(setCategoryId(id));
-    },
-    [dispatch]
-  );
 
   return (
     <div className="container">
