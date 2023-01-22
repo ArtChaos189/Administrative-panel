@@ -1,13 +1,16 @@
-import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
+import { useState, useEffect, useCallback } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
+
+import { Link } from "react-router-dom";
 
 import { Categories, SortPopup, PizzaBlock, Skeleton, Pagination } from "components/ui";
 
 import { selectPizzas, setItems } from "redux/slice/pizzas/slice";
+
 import { selectFilter, setCategoryId } from "redux/slice/filter/slice";
-import { Link } from "react-router-dom";
 
 export const Home = () => {
   const [isLoading, setIsLoading] = useState(true);

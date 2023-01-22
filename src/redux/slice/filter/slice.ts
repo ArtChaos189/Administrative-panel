@@ -1,5 +1,7 @@
-import { RootState } from "../../store";
+import { RootState } from "redux/store";
+
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { FilterSliceState, Sort, sortPropertyEnum } from "./types";
 
 const initialState: FilterSliceState = {

@@ -1,5 +1,7 @@
-import { RootState } from "../../store";
+import { RootState } from "redux/store";
+
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { PizasSliceState, Pizzas } from "./types";
 
 const initialState: PizasSliceState = {
